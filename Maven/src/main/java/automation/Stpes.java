@@ -13,13 +13,13 @@ public class Stpes {
 	@Before
 	public void setUP() {
 		System.setProperty("webdriver.chrome.driver",
-				"C:\\Users\\khimanic\\workspace\\Maven\\MavenDemo\\driver\\chromedriver.exe");
+				"D:\\Maven\\Maven\\driver\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		driver.quit();
 	}
 
 	@Given("^I have a calculator$")
-	public void i_have_a_calculator() {
+	public void i_have_a_calculartor() {
 
 	}
 
