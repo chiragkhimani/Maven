@@ -6,6 +6,12 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>TestDemo</name>
 	<description>		</description>
+	<repositories>
+		<repository>
+			<id>repo.bodar.com</id>
+			<url>http://repo.bodar.com</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>info.cukes</groupId>
@@ -16,9 +22,7 @@
 		<dependency>
 			<groupId>com.googlecode.totallylazy</groupId>
 			<artifactId>totallylazy</artifactId>
-			<version>1.20</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}\lib\totallylazy-1.20.jar</systemPath>
+			<version>1.85</version>
 		</dependency>
 		<dependency>
 			<groupId>info.cukes</groupId>
@@ -68,15 +72,6 @@
 				<groupId>net.masterthought</groupId>
 				<artifactId>maven-cucumber-reporting</artifactId>
 				<version>0.0.5</version>
-				<dependencies>
-					<dependency>
-						<groupId>com.googlecode.totallylazy</groupId>
-						<artifactId>totallylazy</artifactId>
-						<version>991</version>
-						<scope>system</scope>
-						<systemPath>${project.basedir}\lib\totallylazy-991.jar</systemPath>
-					</dependency>
-				</dependencies>
 				<executions>
 					<execution>
 						<id>execution</id>
@@ -86,7 +81,7 @@
 						</goals>
 						<configuration>
 							<projectName>cucumber-jvm-example</projectName>
-							<outputDirectory>${project.build.directory}/site/cucumber-reports</outputDirectory>
+							<outputDirectory>${project.basedir}/Report</outputDirectory>
 							<cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>
 							<enableFlashCharts>false</enableFlashCharts>
 							<skippedFails>true</skippedFails>
