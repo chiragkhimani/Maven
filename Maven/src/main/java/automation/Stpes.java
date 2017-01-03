@@ -1,5 +1,14 @@
 package automation;
 
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 import cucumber.api.Scenario;
@@ -11,11 +20,16 @@ import cucumber.api.java.en.When;
 
 public class Stpes {
 
-	static Scenario scenario;
 	WebDriver driver;
 
-	public Scenario getScenario() {
-		return scenario;
+	private static ThreadLocal<Scenario> scenario = new ThreadLocal<Scenario>();
+
+	public static Scenario getScenario() {
+		return scenario.get();
+	}
+
+	static void setScenario(Scenario driver) {
+		scenario.set(driver);
 	}
 
 	@Before
@@ -24,7 +38,7 @@ public class Stpes {
 		// System.setProperty("webdriver.chrome.driver",
 		// "D:\\git\\Maven\\Maven\\driver\\chromedriver.exe");
 		// driver = new ChromeDriver();
-		this.scenario = scenario;
+		setScenario(scenario);
 	}
 
 	@Given("^I have a calculator$")
@@ -45,5 +59,22 @@ public class Stpes {
 	@After
 	public void quit() {
 
+	}
+
+	public void getScreenshot() {
+		String name;
+		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+		try {
+			FileUtils.copyFile(scrFile, new File("..\\Report\\"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void main(String[] args) {
+		// DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		// Date date = new Date();
+		// System.out.println(new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime()));
 	}
 }
