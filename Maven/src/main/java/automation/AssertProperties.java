@@ -10,7 +10,7 @@ public interface AssertProperties {
 	String passImage = "<img width=\"10px\" height=\"10px\" margin= \"4 10px\" float=\"left\" src=\"../images/download.png\"/>&nbsp;";
 
 	String verifyTruePass = passImage + passText;
-	String verifyTrueFail = failImage + failText;
+	String verifyTrueFail = failImage + failText + screenshot;
 
 	String verifyPresentPass = passImage
 			+ String.format(passText, "Expected %s should be present : Actual %s is present");

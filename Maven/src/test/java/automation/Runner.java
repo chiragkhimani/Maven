@@ -7,6 +7,6 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(monochrome = true, format = { "pretty", "html:target/cucumber-reports",
-		"json:target/cucumber.json" }, glue = "automation", features = "D:\\git\\Maven\\Maven\\src\\test\\resources\\feature\\Demo.feature")
+		"json:target/cucumber.json" }, glue = "automation", features = "C:\\Users\\Khichu\\git\\Maven\\Maven\\src\\test\\resources\\feature\\Demo.feature")
 public class Runner {
 }

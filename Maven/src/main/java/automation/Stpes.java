@@ -1,15 +1,14 @@
 package automation;
 
 import java.io.File;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -20,7 +19,7 @@ import cucumber.api.java.en.When;
 
 public class Stpes {
 
-	WebDriver driver;
+	static WebDriver driver;
 
 	private static ThreadLocal<Scenario> scenario = new ThreadLocal<Scenario>();
 
@@ -28,16 +27,19 @@ public class Stpes {
 		return scenario.get();
 	}
 
-	static void setScenario(Scenario driver) {
-		scenario.set(driver);
+	public WebDriver getWebDriver() {
+		return driver;
+	}
+
+	static void setScenario(Scenario s) {
+		scenario.set(s);
 	}
 
 	@Before
 	public void setUP(Scenario scenario) {
-		// System.out.println("Before");
-		// System.setProperty("webdriver.chrome.driver",
-		// "D:\\git\\Maven\\Maven\\driver\\chromedriver.exe");
-		// driver = new ChromeDriver();
+		System.out.println("Before");
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Khichu\\git\\Maven\\Maven\\driver\\chromedriver.exe");
+		driver = new ChromeDriver();
 		setScenario(scenario);
 	}
 
@@ -45,7 +47,8 @@ public class Stpes {
 	public void i_have_a_calculartor() {
 		VerificationUtil util = new VerificationUtil();
 		util.verifyTrue(true, "Condition Passed", "");
-		util.verifyTrue(false, "Condition Passed", "Condition Faile");
+		util.verifyTrue(false, "Condition Passed", "Condition Failed");
+		org.junit.Assert.assertTrue(false);
 	}
 
 	@When("^I add (\\d+) and (\\d+)$")
@@ -61,20 +64,21 @@ public class Stpes {
 
 	}
 
-	public void getScreenshot() {
-		String name;
+	public String getScreenshot() {
+		String name = getScreenshotName();
 		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		try {
-			FileUtils.copyFile(scrFile, new File("..\\Report\\"));
+			FileUtils.copyFile(scrFile, new File("..\\Report\\" + name));
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return name;
 	}
 
-	public static void main(String[] args) {
-		// DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		// Date date = new Date();
-		// System.out.println(new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime()));
+	public String getScreenshotName() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+		Calendar cal = Calendar.getInstance();
+		return (dateFormat.format(cal.getTime()).toString());
 	}
 }
