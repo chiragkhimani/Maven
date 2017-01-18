@@ -1,10 +1,10 @@
 package automation;
 
 public interface AssertProperties {
-	String screenshot = "&nbsp;<a src=\"%s\">Screenshot</a>";
+	String screenshot = "&nbsp;<a href=\"%s\">Screenshot</a>";
 
 	String passText = "<font color=\"green\" face=\"verdana\">%s</font><br />";
-	String failText = "<font color=\"red\" face=\"verdana\">%s</font><br />";
+	String failText = "<font color=\"red\" face=\"verdana\">%s</font>&nbsp;";
 
 	String failImage = "<img width=\"10px\" height=\"10px\" margin= \"4 10px\" float=\"left\" src=\"../images/cross.png\"/>&nbsp;";
 	String passImage = "<img width=\"10px\" height=\"10px\" margin= \"4 10px\" float=\"left\" src=\"../images/download.png\"/>&nbsp;";

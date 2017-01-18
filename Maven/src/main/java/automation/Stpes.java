@@ -1,10 +1,15 @@
 package automation;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
+import org.assertj.core.api.SoftAssertions;
+import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -38,17 +43,45 @@ public class Stpes {
 	@Before
 	public void setUP(Scenario scenario) {
 		System.out.println("Before");
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Khichu\\git\\Maven\\Maven\\driver\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "D:\\git\\Maven\\Maven\\driver\\chromedriver.exe");
 		driver = new ChromeDriver();
 		setScenario(scenario);
+
+	}
+
+	@Test
+	public void testMtho() throws InterruptedException {
+		WebDriver driver;
+		System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
+		driver = new ChromeDriver();
+		driver.get("http://toolsqa.com/automation-practice-switch-windows/");
+		Thread.sleep(3000);
+		driver.findElement(By.id("button1")).click();
+		Thread.sleep(3000);
+
+		// Perform the click operation that opens new window
+
+		// Switch to new window opened
+		Set<String> windows = driver.getWindowHandles();
+		for (String winHandle : windows) {
+			System.out.println("Wondow Handle: " + driver.getCurrentUrl());
+			driver.switchTo().window(winHandle);
+			System.out.println(winHandle);
+		}
+
 	}
 
 	@Given("^I have a calculator$")
 	public void i_have_a_calculartor() {
-		VerificationUtil util = new VerificationUtil();
-		util.verifyTrue(true, "Condition Passed", "");
-		util.verifyTrue(false, "Condition Passed", "Condition Failed");
-		org.junit.Assert.assertTrue(false);
+		driver.get("http://www.google.com/");
+		VerificationUtil.verifyTrue(true, "Condition Passed", "");
+		VerificationUtil.verifyTrue(false, "Condition Passed", "Condition Failed");
+	}
+
+	@Test
+	public void test() {
+		System.out.println("Out");
+
 	}
 
 	@When("^I add (\\d+) and (\\d+)$")
@@ -60,23 +93,26 @@ public class Stpes {
 	}
 
 	@After
-	public void quit() {
-
+	public void quite() {
+		driver.quit();
 	}
 
-	public String getScreenshot() {
+	public static String getScreenshot() {
 		String name = getScreenshotName();
+		name = name + ".png";
 		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+		System.out.println("====>" + scrFile);
 		try {
-			FileUtils.copyFile(scrFile, new File("..\\Report\\" + name));
-
+			File f = new File("Report\\" + name);
+			System.err.println(f);
+			FileUtils.copyFile(scrFile, f);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return name;
 	}
 
-	public String getScreenshotName() {
+	public static String getScreenshotName() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 		Calendar cal = Calendar.getInstance();
 		return (dateFormat.format(cal.getTime()).toString());

@@ -1,23 +1,27 @@
 package automation;
 
+import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.openqa.selenium.WebElement;
 
 public class VerificationUtil implements AssertProperties {
-	Stpes s = new Stpes();
+	public static final AutoCloseableSoftAssertions softly = new AutoCloseableSoftAssertions();
 
-	public void verifyTrue(boolean condition, String passMsg, String failMsg) {
+	public static void verifyTrue(boolean condition, String passMsg, String failMsg) {
+		softly.assertThat(true).isEqualTo(condition);
 		if (condition) {
 			Stpes.getScenario().write(String.format(verifyTruePass, passMsg));
 		} else {
-			Stpes.getScenario().write(String.format(verifyTrueFail, failMsg, s.getScreenshot()));
+			Stpes.getScenario().write(String.format(verifyTrueFail, failMsg, Stpes.getScreenshot()));
+			System.setProperty("IS_FAILED", "true");
 		}
+		softly.assertAll();
 	}
 
-	public void verifyPresent(WebElement ele, String label) {
+	public static void verifyPresent(WebElement ele, String label) {
 
 	}
 
-	public void verifyVisible(WebElement ele, String label) {
+	public static void verifyVisible(WebElement ele, String label) {
 		if (ele.isDisplayed()) {
 			Stpes.getScenario().write(String.format(verifyVisiblePass, label));
 		} else {
@@ -25,7 +29,7 @@ public class VerificationUtil implements AssertProperties {
 		}
 	}
 
-	public void verifyText(WebElement ele, String expectedText, String label) {
+	public static void verifyText(WebElement ele, String expectedText, String label) {
 		if (ele.getText().equalsIgnoreCase(expectedText)) {
 			Stpes.getScenario().write(String.format(verifyTextPass, label, expectedText, label, ele.getText()));
 		} else {
@@ -33,7 +37,7 @@ public class VerificationUtil implements AssertProperties {
 		}
 	}
 
-	public void verifyTextContains(WebElement ele, String expectedText, String label) {
+	public static void verifyTextContains(WebElement ele, String expectedText, String label) {
 		if (ele.getText().contains(expectedText)) {
 			Stpes.getScenario().write(String.format(verifyTextContainsPass, label, expectedText, label, ele.getText()));
 		} else {
