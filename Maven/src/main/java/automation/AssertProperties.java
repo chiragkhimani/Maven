@@ -1,7 +1,7 @@
 package automation;
 
 public interface AssertProperties {
-	String screenshot = "&nbsp;<a href=\"%s\">Screenshot</a>";
+	String screenshot = "&nbsp;<a href=\"%s\">Screenshot</a><br />";
 
 	String passText = "<font color=\"green\" face=\"verdana\">%s</font><br />";
 	String failText = "<font color=\"red\" face=\"verdana\">%s</font>&nbsp;";

@@ -1,20 +1,25 @@
 package automation;
 
-import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.openqa.selenium.WebElement;
+import org.testng.TestNG;
+import org.testng.asserts.SoftAssert;
 
 public class VerificationUtil implements AssertProperties {
-	public static final AutoCloseableSoftAssertions softly = new AutoCloseableSoftAssertions();
+	public static final SoftAssert softly = new SoftAssert();
+
+	public static SoftAssert getAssert() {
+		return softly;
+	}
 
 	public static void verifyTrue(boolean condition, String passMsg, String failMsg) {
-		softly.assertThat(true).isEqualTo(condition);
+		TestNG test = new TestNG();
+		test.setVerbose(0);
 		if (condition) {
 			Stpes.getScenario().write(String.format(verifyTruePass, passMsg));
 		} else {
 			Stpes.getScenario().write(String.format(verifyTrueFail, failMsg, Stpes.getScreenshot()));
 			System.setProperty("IS_FAILED", "true");
 		}
-		softly.assertAll();
 	}
 
 	public static void verifyPresent(WebElement ele, String label) {
@@ -43,6 +48,9 @@ public class VerificationUtil implements AssertProperties {
 		} else {
 			Stpes.getScenario().write(String.format(verifyTextContainsFail, label, expectedText, label, ele.getText()));
 		}
+	}
+
+	public static void close() {
 	}
 
 }
