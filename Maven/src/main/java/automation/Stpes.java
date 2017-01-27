@@ -1,13 +1,14 @@
 package automation;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
-import org.assertj.core.api.SoftAssertions;
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
@@ -15,12 +16,16 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.internal.filter.ValueNode.JsonNode;
+
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import net.minidev.json.JSONArray;
 
 public class Stpes {
 
@@ -46,7 +51,6 @@ public class Stpes {
 		System.setProperty("webdriver.chrome.driver", "D:\\git\\Maven\\Maven\\driver\\chromedriver.exe");
 		driver = new ChromeDriver();
 		setScenario(scenario);
-
 	}
 
 	@Test
@@ -76,16 +80,21 @@ public class Stpes {
 		driver.get("http://www.google.com/");
 		VerificationUtil.verifyTrue(true, "Condition Passed", "");
 		VerificationUtil.verifyTrue(false, "Condition Passed", "Condition Failed");
+		VerificationUtil.verifyTrue(true, "Condition Passed", "");
+		VerificationUtil.verifyTrue(false, "Condition Passed", "Condition Failed");
+		VerificationUtil.close();
 	}
 
 	@Test
 	public void test() {
 		System.out.println("Out");
-
 	}
 
 	@When("^I add (\\d+) and (\\d+)$")
 	public void i_add_and(int arg1, int arg2) {
+		VerificationUtil.verifyTrue(false, "Condition Passed", "Condition Failed");
+		VerificationUtil.verifyTrue(true, "Condition Passed", "");
+		VerificationUtil.verifyTrue(false, "Condition Passed", "Condition Failed");
 	}
 
 	@Then("^the result should be (\\d+)$")
@@ -94,7 +103,14 @@ public class Stpes {
 
 	@After
 	public void quite() {
+
 		driver.quit();
+	}
+
+	public static void main(String[] args) throws IOException {
+		FileInputStream fisTargetFile = new FileInputStream(new File("target//cucumber.json"));
+		String targetFileStr = IOUtils.toString(fisTargetFile);
+		System.out.println(JsonPath.read(targetFileStr, "$.0"));
 	}
 
 	public static String getScreenshot() {
@@ -102,6 +118,7 @@ public class Stpes {
 		name = name + ".png";
 		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		System.out.println("====>" + scrFile);
+
 		try {
 			File f = new File("Report\\" + name);
 			System.err.println(f);
