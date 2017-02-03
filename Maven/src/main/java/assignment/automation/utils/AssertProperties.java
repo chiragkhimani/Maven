@@ -1,4 +1,4 @@
-package automation;
+package assignment.automation.utils;
 
 public interface AssertProperties {
 	String screenshot = "&nbsp;<a href=\"%s\">Screenshot</a><br />";
@@ -15,20 +15,20 @@ public interface AssertProperties {
 	String verifyPresentPass = passImage
 			+ String.format(passText, "Expected %s should be present : Actual %s is present");
 	String verifyPresentFail = failImage
-			+ String.format(passText, "Expected %s should be present : Actual %s is NOT present");
+			+ String.format(failText, "Expected %s should be present : Actual %s is NOT present");
 
 	String verifyVisiblePass = passImage
 			+ String.format(passText, "Expected %s should be visible :Actual %s is visible");
 	String verifyVisibleFail = failImage
-			+ String.format(passText, "Expected %s should be visible :Actual %s is NOT visible");
+			+ String.format(failText, "Expected %s should be visible :Actual %s is NOT visible");
 
 	String verifyTextPass = passImage
 			+ String.format(passText, "Expected %s should have text %s :Actual %s have text %s");
 	String verifyTextFail = failImage
-			+ String.format(passText, "Expected %s should have text %s :Actual %s have text %s");
+			+ String.format(failText, "Expected %s should have text %s :Actual %s have text %s");
 
 	String verifyTextContainsPass = passImage
 			+ String.format(passText, "Expected %s should contains text %s :Actual %s contains text %s");
 	String verifyTextContainsFail = failImage
-			+ String.format(passText, "Expected %s should contains text %s :Actual %s contains text %s");
+			+ String.format(failText, "Expected %s should contains text %s :Actual %s contains text %s");
 }

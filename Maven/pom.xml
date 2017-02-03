@@ -79,29 +79,6 @@
 		<plugins>
 
 			<plugin>
-				<groupId>net.masterthought</groupId>
-				<artifactId>maven-cucumber-reporting</artifactId>
-				<version>0.0.5
-			</version>
-				<executions>
-					<execution>
-						<id>execution</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-						<configuration>
-							<projectName>cucumber-jvm-example</projectName>
-							<outputDirectory>${project.basedir}/Report</outputDirectory>
-							<parallelTesting>true</parallelTesting>
-							<cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>
-							<skippedFails>true</skippedFails>
-							<projectName>Simple Project</projectName>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.4.0</version>
@@ -115,7 +92,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>automation.Main</mainClass>
+					<mainClass>assignment.automation.utils.ReportUtil</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>
